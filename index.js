@@ -1,9 +1,9 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const app = express()
-const userRoutes = require("../routes/userRoutes")
-const chatRoutes = require("../routes/chatRoutes")
-const messageRoutes = require("../routes/messageRoutes")
+const userRoutes = require("./routes/userRoutes")
+const chatRoutes = require("./routes/chatRoutes")
+const messageRoutes = require("./routes/messageRoutes")
 const cors = require("cors")
 const path = require('path')
 
