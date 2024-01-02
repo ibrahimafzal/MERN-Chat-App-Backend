@@ -1,15 +1,16 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const app = express()
-const userRoutes = require("./routes/userRoutes")
-const chatRoutes = require("./routes/chatRoutes")
-const messageRoutes = require("./routes/messageRoutes")
+const userRoutes = require("../routes/userRoutes")
+const chatRoutes = require("../routes/chatRoutes")
+const messageRoutes = require("../routes/messageRoutes")
 const cors = require("cors")
 const path = require('path')
 
 require("dotenv").config()
 app.use(express.json())
 app.use(cors())
+
 
 // MONGO DB
 const MONGO_URL = process.env.MONGO_URL
@@ -21,9 +22,8 @@ const connectDb = async () => {
         console.log(error)
     }
 }
-
-
 connectDb()
+
 
 // Routes
 app.use("/user", userRoutes)
@@ -62,7 +62,7 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
     console.log("Socket.io Connection established")
-    
+
     socket.on("setup", (userData) => {
         socket.join(userData._id)
         socket.emit("connected")
@@ -76,13 +76,14 @@ io.on("connection", (socket) => {
     socket.on("stop typing", (room) => socket.in(room).emit("stop typing"))
 
     socket.on("new message", (newMessageRecieved) => {
+        console.log("new => ", newMessageRecieved)
         var chat = newMessageRecieved?.chat
-        if(!chat.users) {
+        if (!chat.users) {
             return console.log("chat.users not defined")
         }
         chat.users.forEach((user) => {
             if (user._id == newMessageRecieved.sender._id) return;
-    
+
             socket.in(user._id).emit("message recieved", newMessageRecieved)
         })
     })
