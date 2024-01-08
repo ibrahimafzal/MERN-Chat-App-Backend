@@ -9,8 +9,11 @@ const path = require('path')
 
 require("dotenv").config()
 app.use(express.json())
-app.use(cors())
-
+app.use(cors({
+    origin: 'https://mern-chat-app-frontend-sigma.vercel.app',
+    methods: ['GET', 'POST'],
+    credentials: true,
+}))
 
 // MONGO DB
 const MONGO_URL = process.env.MONGO_URL
