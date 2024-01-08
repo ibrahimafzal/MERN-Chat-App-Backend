@@ -58,7 +58,7 @@ const io = require("socket.io")(server, {
         origin: "*"
     },
     pingTimeout: 60000,
-    transport: ['websocket'],
+    transports: ['websocket'],
     reconnection: true
 })
 
