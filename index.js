@@ -57,9 +57,7 @@ const io = require("socket.io")(server, {
     cors: {
         origin: "*"
     },
-    pingTimeout: 60000,
-    transports: ['websocket'],
-    reconnection: true
+    pingTimeout: 60000
 })
 
 io.on("connection", (socket) => {
